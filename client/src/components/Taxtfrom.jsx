@@ -14,6 +14,7 @@ const TextForm = ({
   setFont,
   color,
   setColor,
+  handleDownload,
 }) => {
   return (
     <div className="bg-[#f6f6f6] p-6 rounded-2xl border border-gray-300 w-95">
@@ -85,12 +86,31 @@ const TextForm = ({
         <select
           value={font}
           onChange={(e) => setFont(e.target.value)}
-          className="w-full  rounded-xl  outline-none"
+          className="w-full rounded-xl outline-none"
         >
-          <option value="cursive">Cursive</option>
-          <option value="sans">Sans</option>
-          <option value="serif">Serif</option>
-          <option value="mono">Mono</option>
+          <option value="font1" style={{ fontFamily: "font1" }}>
+            Autumn Background
+          </option>
+
+          <option value="font2" style={{ fontFamily: "font2" }}>
+            Giant Impact
+          </option>
+
+          <option value="font3" style={{ fontFamily: "font3" }}>
+            Jiggery Pokery
+          </option>
+
+          <option value="font4" style={{ fontFamily: "font4" }}>
+            Simple Chunky
+          </option>
+
+          <option value="font5" style={{ fontFamily: "font5" }}>
+            Simple Daisy
+          </option>
+
+          <option value="font6" style={{ fontFamily: "font6" }}>
+            Agent Orange
+          </option>
         </select>
       </div>
 
@@ -103,7 +123,7 @@ const TextForm = ({
       <div className="border-t my-5"></div>
 
       {/* DOWNLOAD */}
-      <button className="w-full border border-gray-300 py-3 rounded-xl text-lg font-semibold hover:bg-gray-200">
+      <button onClick={handleDownload} className="w-full border border-gray-300 py-3 rounded-xl text-lg font-semibold hover:bg-gray-200">
         Download
       </button>
 

@@ -3,5 +3,30 @@
 
 @font-face {
     font-family: font1;
-    src: url();
+    src: url(../public/fonts/Autumn\ Background.ttf);
+}
+
+@font-face {
+    font-family: font2;
+    src: url(../public/fonts/GiantImpact-Regular.ttf);
+}
+
+@font-face {
+    font-family: font3;
+    src: url(../public/fonts/Jiggery\ Pokery.ttf);
+}
+
+@font-face {
+    font-family: font4;
+    src: url(../public/fonts/Simple\ Chunky.otf);
+}
+
+@font-face {
+    font-family: font5;
+    src: url(../public/fonts/Simple\ Daisy.ttf);
+}
+
+@font-face {
+    font-family: font6;
+    src: url(../public/fonts/AGENTORANGE.TTF);
 }

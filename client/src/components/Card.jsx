@@ -1,14 +1,17 @@
-import React, { useRef } from "react";
+import React, { useRef, forwardRef } from "react";
 
-const Card = ({
-  title,
-  description,
-  image,
-  onUpload,
-  brightness,
-  textPosition,
-  color,
-}) => {
+const Card = forwardRef((props, ref) => {
+  const {
+    title,
+    description,
+    image,
+    onUpload,
+    brightness,
+    textPosition,
+    color,
+    font,
+  } = props;
+
   const fileInputRef = useRef(null);
 
   const handleClick = () => {
@@ -22,55 +25,49 @@ const Card = ({
   };
 
   const handleChange = (e) => {
-    const file = e.target.files[0];
-    handleFile(file);
+    handleFile(e.target.files[0]);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    handleFile(file);
-  };
-
-  const handleDragOver = (e) => {
-    e.preventDefault();
+    handleFile(e.dataTransfer.files[0]);
   };
 
   return (
     <div className="flex justify-center items-center">
       <div
-        className="relative w-96 border border-amber-200 h-165 rounded-2xl overflow-hidden shadow-xl cursor-pointer"
+        ref={ref}
+        className="relative w-96 h-162.5 rounded-2xl overflow-hidden shadow-xl cursor-pointer"
         style={{ filter: `brightness(${200 - brightness}%)` }}
         onClick={handleClick}
         onDrop={handleDrop}
-        onDragOver={handleDragOver}
+        onDragOver={(e) => e.preventDefault()}
       >
         {/* IMAGE */}
-        <img
-          src={image}
-          alt="card"
-          className="w-full h-full object-cover"
-        />
+        <img src={image} alt="card" className="w-full h-full object-cover" />
 
         {/* OVERLAY */}
-        <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/40 to-transparent"></div>
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4), transparent)",
+          }}
+        ></div>
 
         {/* TEXT */}
         <div
           className={`absolute left-6 right-6 ${
             textPosition === "top" ? "top-6" : "bottom-6"
           }`}
-          style={{ color: color }}
+          style={{ color: color, fontFamily: font }}
         >
-          <p className="text-sm font-semibold opacity-80">{title}</p>
-          <h2 className="text-2xl font-bold leading-snug">
-            {description}
-          </h2>
+          <p className="text-4xl font-semibold opacity-80">{title}</p>
+          <div className="my-4" />
+          <h2 className="text-2xl font-bold leading-snug">{description}</h2>
         </div>
 
-       
-
-        {/* HIDDEN INPUT */}
+        {/* INPUT */}
         <input
           type="file"
           accept="image/*"
@@ -81,6 +78,6 @@ const Card = ({
       </div>
     </div>
   );
-};
+});
 
 export default Card;

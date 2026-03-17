@@ -1,20 +1,46 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TextForm from "../components/Taxtfrom";
 import Card from "../components/Card";
+import html2canvas from "html2canvas";
 
 const MainPage = () => {
+  const cardRef = useRef();
+
   const [title, setTitle] = useState("Beautiful cow");
   const [description, setDescription] = useState(
     "Discover the mythical sunken ship wreck"
   );
-
   const [brightness, setBrightness] = useState(100);
   const [textPosition, setTextPosition] = useState("bottom");
-  const [mode, setMode] = useState("dark");
-  const [font, setFont] = useState("sans");
+  const [font, setFont] = useState("serif");
   const [color, setColor] = useState("#ffffff");
 
-  const image = "https://pluscdn.undraw.co/static/init1opencards.jpg";
+  const [image, setImage] = useState(
+    "https://pluscdn.undraw.co/static/init1opencards.jpg"
+  );
+
+  // ✅ upload
+  const handleUpload = (file) => {
+    const url = URL.createObjectURL(file);
+    setImage(url);
+  };
+
+  // ✅ download
+  const handleDownload = async () => {
+    const element = cardRef.current;
+
+    await document.fonts.ready;
+
+    const canvas = await html2canvas(element, {
+      useCORS: true,
+      scale: 2,
+    });
+
+    const link = document.createElement("a");
+    link.download = "card.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-center p-10">
@@ -29,23 +55,23 @@ const MainPage = () => {
           setBrightness={setBrightness}
           textPosition={textPosition}
           setTextPosition={setTextPosition}
-          mode={mode}
-          setMode={setMode}
           font={font}
           setFont={setFont}
           color={color}
           setColor={setColor}
+          handleDownload={handleDownload}
         />
 
         <Card
+          ref={cardRef}
           title={title}
           description={description}
+          image={image}
+          onUpload={handleUpload}
           brightness={brightness}
           textPosition={textPosition}
-          mode={mode}
-          font={font}
           color={color}
-          image={image}
+          font={font}
         />
 
       </div>
